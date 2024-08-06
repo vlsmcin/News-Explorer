@@ -1,4 +1,5 @@
 import Card from "@/components/card";
+import SearchBar from "@/components/searchBar";
 import { Text, View } from "react-native";
 
 export default function Index() {
@@ -10,6 +11,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
+      <SearchBar />
       <Card title="The G20 is considering a global billionaire tax. Australia is missing in action"
        description="74% of Australians support a wealth tax on individuals with over $50 million.\nThe post The G20 is considering a global billionaire tax. Australia is missing in action appeared first on Crikey."
         link="https://s1.trrsf.com/update-1698692222/fe/zaz-mod-t360-icons/svg/logos/terra-16x9-borda.png"
