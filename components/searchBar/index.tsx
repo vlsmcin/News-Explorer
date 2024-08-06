@@ -44,7 +44,7 @@ export default function SearchBar() {
                 onChangeText={setSearch}
                 onSubmitEditing={handleSearch}
             />
-            <Button title="Search" />
+            <Button title="Search" onPress={handleSearch}/>
         </SafeAreaView>
     );
     }

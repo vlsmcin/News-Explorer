@@ -18,7 +18,7 @@ function HomeNavigation() {
 export default function RootLayout() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="index" options={{headerShown:false}} component={HomeNavigation}/>
+      <Tab.Screen name="index" options={{title:'Home',headerShown:false}} component={HomeNavigation}/>
       <Tab.Screen name="search" options={{headerShown:false}} component={Search}/>
     </Tab.Navigator>
   );
