@@ -1,4 +1,4 @@
-import { TextInput, Button, SafeAreaView } from "react-native";
+import { TextInput, Button, SafeAreaView, View } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "expo-router";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -24,10 +24,12 @@ export default function SearchBar() {
         style={{
             flexDirection: "row",
             alignItems: "center",
+            width: "100%",
             justifyContent: "space-between",
-            marginHorizontal: 20,
             position: "absolute",
-            top: 60,
+            top: 0,
+            zIndex: 10,
+            backgroundColor: "white",
         }}
         >
             <TextInput
@@ -37,14 +39,18 @@ export default function SearchBar() {
                 height: 40,
                 borderWidth: 1,
                 borderRadius: 10,
-                paddingHorizontal: 10,
-                marginRight: 10,
+                paddingHorizontal: 100,
+                marginRight: 20,
+                marginLeft: 20,
+                marginBottom: 15,
                 }}
                 value={search}
                 onChangeText={setSearch}
                 onSubmitEditing={handleSearch}
             />
-            <Button title="Search" onPress={handleSearch}/>
+            <View style={{marginBottom: 15, marginRight: 10}}>
+                <Button title="Search" onPress={handleSearch}/>
+            </View>
         </SafeAreaView>
     );
     }
