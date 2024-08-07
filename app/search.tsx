@@ -24,23 +24,38 @@ interface Source {
 
 export default function Search() {
     const [dataAPI,setDataAPI] = useState<APIProps[] | null>(null)
+    const [search, setSearch] = useState("");
+
     const route = useRoute();
-    const search = route.params as { query: string };
+    const searchRoute = route.params as { query: string };
+
+    const handleSearch = (text:string) => {
+        setSearch(text)
+        fetchArticles(text)
+    }
     
+    const fetchArticles = (query: string) => {
+      const url = `https://newsapi.org/v2/everything?q=${query}&apiKey=${API_KEY}`;
+      fetch(url)
+          .then(response => response.json())
+          .then(data => {
+              setDataAPI(data.articles);
+          })
+    };
+
     useEffect(() => {
-        const url = `https://newsapi.org/v2/everything?q=${search.query}&apiKey=${API_KEY}`
+        const url = `https://newsapi.org/v2/everything?q=${searchRoute.query}&apiKey=${API_KEY}`
         fetch(url)
         .then(response => response.json())
         .then(data => {
             setDataAPI(data.articles)
         })
-        console.warn(url)
-    }, [search])
+    }, [searchRoute.query])
 
 
     return (
     <View>
-      <SearchBar />
+      <SearchBar onSubmit={() => console.log(1)} setSearch={handleSearch}/>
       <ScrollView
         contentContainerStyle={{
           display: "flex",

@@ -3,20 +3,18 @@ import { useState } from "react";
 import { useNavigation } from "expo-router";
 import { StackNavigationProp } from "@react-navigation/stack";
 
+interface SearchBarProps {
+    onSubmit: () => void;
+    setSearch: (search: string) => void;
+}
 
-type RootStackParamList = {
-    index: undefined;
-    search: { query: string };
-  };
-  
-type SearchBarNavigationProp = StackNavigationProp<RootStackParamList, 'search'>;
+export default function SearchBar({ onSubmit,setSearch }: SearchBarProps) {
+    const [localSearch, setLocalSearch] = useState("");
 
-export default function SearchBar() {
-    const [search, setSearch] = useState("");
-    const navigation = useNavigation<SearchBarNavigationProp>();
-
-    const handleSearch = () => {
-        navigation.navigate('search', { query: search });
+    const handleSearch = (text : string) => {
+        setLocalSearch(text);
+        setSearch(text);
+        
     };
 
     return (
@@ -44,12 +42,12 @@ export default function SearchBar() {
                 marginLeft: 20,
                 marginBottom: 15,
                 }}
-                value={search}
-                onChangeText={setSearch}
-                onSubmitEditing={handleSearch}
+                value={localSearch}
+                onChangeText={handleSearch}
+                onSubmitEditing={onSubmit}
             />
             <View style={{marginBottom: 15, marginRight: 10}}>
-                <Button title="Search" onPress={handleSearch}/>
+                <Button title="Search" onPress={onSubmit}/>
             </View>
         </SafeAreaView>
     );

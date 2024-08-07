@@ -1,12 +1,28 @@
 import Card from "@/components/card";
 import SearchBar from "@/components/searchBar";
 import { Text, View } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+
+type RootStackParamList = {
+  index: undefined;
+  search: { query: string };
+};
+
+type SearchBarNavigationProp = StackNavigationProp<RootStackParamList, 'search'>;
 
 export default function Index() {
+  const navigation = useNavigation<SearchBarNavigationProp>();
+  const [search, setSearch] = useState("");
+
+  const handleSearch = () => {
+      navigation.navigate('search', { query: search });
+  };
 
   return (
     <View>
-      <SearchBar />
+      <SearchBar onSubmit={handleSearch} setSearch={setSearch}/>
       <View
         style={{
           display: "flex",
