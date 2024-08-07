@@ -25,17 +25,17 @@ interface Source {
 export default function Search() {
     const [dataAPI,setDataAPI] = useState<APIProps[] | null>(null)
     const route = useRoute();
-    const { search } = route.params as { search: string }
+    const search = route.params as { query: string };
     
     useEffect(() => {
-        console.warn(search)
-        const url = `https://newsapi.org/v2/everything?q=${search}&apiKey=${API_KEY}`
+        const url = `https://newsapi.org/v2/everything?q=${search.query}&apiKey=${API_KEY}`
         fetch(url)
         .then(response => response.json())
         .then(data => {
             setDataAPI(data.articles)
         })
-    }, [])
+        console.warn(url)
+    }, [search])
 
 
     return (
