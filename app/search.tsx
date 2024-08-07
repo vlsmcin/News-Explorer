@@ -1,6 +1,6 @@
 import Card from "@/components/card"
 import SearchBar from "@/components/searchBar"
-import { View } from "react-native"
+import { View, Text } from "react-native"
 import { API_KEY } from "@env"
 import { useState, useEffect } from "react"
 import { useRoute } from "@react-navigation/native"
@@ -27,7 +27,7 @@ export default function Search() {
     const [search, setSearch] = useState("");
 
     const route = useRoute();
-    const searchRoute = route.params as { query: string };
+    const searchRoute = route.params as { query: string } | undefined;
 
     const handleSearch = (text:string) => {
         setSearch(text)
@@ -44,10 +44,10 @@ export default function Search() {
     };
 
     useEffect(() => {
-        if (searchRoute.query) {
+        if (searchRoute) {
           fetchArticles(searchRoute.query)
         }
-    }, [searchRoute.query])
+    }, [searchRoute])
 
 
     return (
@@ -65,10 +65,12 @@ export default function Search() {
       >
         {dataAPI && dataAPI.map((article: APIProps) => (
         <Card title={article.title}
+          key={article.url}
           link={article.urlToImage}
           source={article.url}
           description={article.description}/>
         ))}
+        {!dataAPI && <View><Text>No articles found</Text></View>}
       </ScrollView>
     </View>
     )
