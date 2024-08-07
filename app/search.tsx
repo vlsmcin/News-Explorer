@@ -4,7 +4,7 @@ import { View } from "react-native"
 import { API_KEY } from "@env"
 import { useState, useEffect } from "react"
 import { useRoute } from "@react-navigation/native"
-import { ScrollView } from "react-native-gesture-handler"
+import { ScrollView } from "react-native"
 
 interface APIProps {
     source: Source;
@@ -44,12 +44,9 @@ export default function Search() {
     };
 
     useEffect(() => {
-        const url = `https://newsapi.org/v2/everything?q=${searchRoute.query}&apiKey=${API_KEY}`
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            setDataAPI(data.articles)
-        })
+        if (searchRoute.query) {
+          fetchArticles(searchRoute.query)
+        }
     }, [searchRoute.query])
 
 

@@ -1,19 +1,19 @@
 import Card from "@/components/card";
 import SearchBar from "@/components/searchBar";
 import { Text, View } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 
-type RootStackParamList = {
+type RootTabParamList = {
   index: undefined;
   search: { query: string };
 };
 
-type SearchBarNavigationProp = StackNavigationProp<RootStackParamList, 'search'>;
+type NavigationProp = BottomTabNavigationProp<RootTabParamList, 'search'>;
 
 export default function Index() {
-  const navigation = useNavigation<SearchBarNavigationProp>();
+  const navigation = useNavigation<NavigationProp>();
   const [search, setSearch] = useState("");
 
   const handleSearch = () => {
