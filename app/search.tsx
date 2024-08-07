@@ -1,7 +1,7 @@
 import Card from "@/components/card"
 import SearchBar from "@/components/searchBar"
 import { View } from "react-native"
-import { APIKey } from "@/constants/API"
+import { API_KEY } from "@env"
 import { useState, useEffect } from "react"
 import { useRoute } from "@react-navigation/native"
 import { ScrollView } from "react-native-gesture-handler"
@@ -28,7 +28,8 @@ export default function Search() {
     const { search } = route.params as { search: string }
     
     useEffect(() => {
-        const url = `https://newsapi.org/v2/everything?q=${search}&apiKey=${APIKey}`
+        console.warn(search)
+        const url = `https://newsapi.org/v2/everything?q=${search}&apiKey=${API_KEY}`
         fetch(url)
         .then(response => response.json())
         .then(data => {

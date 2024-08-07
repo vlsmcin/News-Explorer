@@ -1,14 +1,6 @@
 import Card from "@/components/card";
 import SearchBar from "@/components/searchBar";
 import { Text, View } from "react-native";
-import { APIKey } from "@/constants/API";
-
-interface APIProps {
-  title: string;
-  description: string;
-  link: string;
-  source: string;
-}
 
 export default function Index() {
 
