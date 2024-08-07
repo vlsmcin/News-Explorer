@@ -65,7 +65,6 @@ export default function Search() {
       >
         {dataAPI && dataAPI.map((article: APIProps) => (
         <Card title={article.title}
-          key={article.url}
           link={article.urlToImage}
           source={article.url}
           description={article.description}/>
