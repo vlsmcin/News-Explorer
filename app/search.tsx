@@ -5,6 +5,7 @@ import { API_KEY } from "@env"
 import { useState, useEffect } from "react"
 import { useRoute } from "@react-navigation/native"
 import { ScrollView } from "react-native"
+import { storeData, getData } from "@/constants/storage"
 
 interface APIProps {
     source: Source;
@@ -23,6 +24,7 @@ interface Source {
 }
 
 export default function Search() {
+    // Hooks para realizar o get na API
     const [dataAPI,setDataAPI] = useState<APIProps[] | null>(null)
     const [search, setSearch] = useState("");
 
@@ -30,10 +32,23 @@ export default function Search() {
     const searchRoute = route.params as { query: string } | undefined;
 
     const handleSearch = (text:string) => {
-        setSearch(text)
-        fetchArticles(text)
+        setSearch(text);
+        fetchArticles(text);
+        updateSearchHistory(text);
     }
+
+    // Lógica para armazenar o histórico de busca
+    const updateSearchHistory = async (text: string) => {
+      try {
+          const history = (await getData("history")) || [];
+          history.push(text);
+          await storeData("history", history);
+      } catch (error) {
+          console.error("Erro ao atualizar o histórico:", error);
+      }
+  };
     
+    // Get da API
     const fetchArticles = (query: string) => {
       const url = `https://newsapi.org/v2/everything?q=${query}&apiKey=${API_KEY}`;
       fetch(url)
@@ -43,9 +58,11 @@ export default function Search() {
           })
     };
 
+    // Caso seja via navegação
     useEffect(() => {
         if (searchRoute) {
-          fetchArticles(searchRoute.query)
+          fetchArticles(searchRoute.query);
+          updateSearchHistory(searchRoute.query);
         }
     }, [searchRoute])
 
