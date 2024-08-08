@@ -11,9 +11,10 @@ interface SearchBarProps {
 export default function SearchBar({ onSubmit,setSearch }: SearchBarProps) {
     const [localSearch, setLocalSearch] = useState("");
 
-    const handleSearch = () => {
-        setSearch(localSearch);
-        onSubmit();
+    const handleSearch = (text : string) => {
+        setLocalSearch(text);
+        setSearch(text);
+        
     };
 
     return (
@@ -42,11 +43,11 @@ export default function SearchBar({ onSubmit,setSearch }: SearchBarProps) {
                 marginBottom: 15,
                 }}
                 value={localSearch}
-                onChangeText={setLocalSearch}
-                onSubmitEditing={handleSearch}
+                onChangeText={handleSearch}
+                onSubmitEditing={onSubmit}
             />
             <View style={{marginBottom: 15, marginRight: 10}}>
-                <Button title="Search" onPress={handleSearch}/>
+                <Button title="Search" onPress={onSubmit}/>
             </View>
         </SafeAreaView>
     );
