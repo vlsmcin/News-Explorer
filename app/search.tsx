@@ -63,11 +63,15 @@ export default function Search() {
           alignItems: "center",
         }}
       >
-        {dataAPI && dataAPI.map((article: APIProps) => (
-        <Card title={article.title}
-          link={article.urlToImage}
-          source={article.url}
-          description={article.description}/>
+        {dataAPI && dataAPI.map((article: APIProps,index: number) => (
+        <View key={index} style={{ marginBottom: index === dataAPI.length - 1 ? 180 : 0 }}>
+          <Card
+              title={article.title}
+              link={article.urlToImage}
+              source={article.url}
+              description={article.description}
+          />
+        </View>
         ))}
         {!dataAPI && <View><Text>No articles found</Text></View>}
       </ScrollView>
