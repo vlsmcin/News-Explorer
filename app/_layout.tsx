@@ -19,6 +19,7 @@ export default function RootLayout() {
       />
       <Tab.Screen name="search"
         options={{headerShown:false,
+          title:'Buscar',
           tabBarIcon:({color,size})=>(
             <MaterialCommunityIcons name="magnify" color={color} size={size}/>
           )
