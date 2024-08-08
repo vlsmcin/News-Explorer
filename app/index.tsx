@@ -62,7 +62,7 @@ export default function Index() {
           marginBottom: 150,
         }}
       >
-        <Text style={{fontSize:36}}> Top Headlines: </Text>
+        <Text style={{fontSize:36}}> Principais Manchetes: </Text>
         {dataAPI && (
         <FlatList
           data={dataAPI}

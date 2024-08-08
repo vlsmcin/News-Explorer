@@ -46,7 +46,7 @@ export default function SearchBar({ onSubmit,setSearch }: SearchBarProps) {
                 onSubmitEditing={handleSearch}
             />
             <View style={{marginBottom: 15, marginRight: 10}}>
-                <Button title="Search" onPress={handleSearch}/>
+                <Button title="Buscar" onPress={handleSearch}/>
             </View>
         </SafeAreaView>
     );

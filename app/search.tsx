@@ -1,6 +1,6 @@
 import Card from "@/components/card"
 import SearchBar from "@/components/searchBar"
-import { View, Text } from "react-native"
+import { View, Text, ActivityIndicator } from "react-native"
 import { API_KEY } from "@env"
 import { useState, useEffect } from "react"
 import { useRoute } from "@react-navigation/native"
@@ -27,6 +27,7 @@ export default function Search() {
     // Hooks para realizar o get na API
     const [dataAPI,setDataAPI] = useState<APIProps[] | null>(null)
     const [search, setSearch] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const route = useRoute();
     const searchRoute = route.params as { query: string } | undefined;
@@ -50,12 +51,14 @@ export default function Search() {
     
     // Get da API
     const fetchArticles = (query: string) => {
+      setLoading(true);
       const url = `https://newsapi.org/v2/everything?q=${query}&apiKey=${API_KEY}`;
       fetch(url)
           .then(response => response.json())
           .then(data => {
               setDataAPI(data.articles);
           })
+          .finally(() => setLoading(false));
     };
 
     // Caso seja via navegação
@@ -80,7 +83,8 @@ export default function Search() {
           alignItems: "center",
         }}
       >
-        {dataAPI && dataAPI.map((article: APIProps,index: number) => (
+        {loading && <ActivityIndicator size="large" color="#0000ff" />}
+        {!loading && dataAPI && dataAPI.map((article: APIProps,index: number) => (
         <View key={index} style={{ marginBottom: index === dataAPI.length - 1 ? 180 : 0 }}>
           <Card
               title={article.title}
@@ -90,7 +94,7 @@ export default function Search() {
           />
         </View>
         ))}
-        {!dataAPI && <View><Text>No articles found</Text></View>}
+        {!loading && !dataAPI && <View><Text>Nenhum artigo encontrado</Text></View>}
       </ScrollView>
     </View>
     )
